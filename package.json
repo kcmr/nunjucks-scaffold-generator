@@ -1,6 +1,6 @@
 {
   "name": "nunjucks-scaffold-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scaffolding generator for Nunjucks",
   "keywords": [
     "scaffold",
