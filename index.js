@@ -23,11 +23,19 @@ const getAllTemplateFiles = (dir) =>
     return isDirectory ? [...files, ...getAllTemplateFiles(name)] : [...files, name];
   }, []);
 
-const render = ({src, dest, replacement = [], ...templateParams}) => {
+/**
+ * Generates files from the specified scaffold templates.
+ * 
+ * @param {String} src Templates path.
+ * @param {String} dest Destiny path.
+ * @param {Array} replacement (`[<pattern>, <replacement>]`) Optional replacement for the file names.
+ * @param {Object} params Params passed to Nunjucks templates.
+ */
+const render = ({src, dest, replacement = [], params}) => {
   nunjucks.configure(src);
   const files = getAllTemplateFiles(src);
   files.forEach((file) => {
-    nunjucks.render(file, templateParams, (function(err, result) {
+    nunjucks.render(file, params, (function(err, result) {
       if (err) return console.log(err);
       const outputFile = getOutputFileName(file, src, replacement);
       fs.outputFile(path.resolve(dest, outputFile), result);
